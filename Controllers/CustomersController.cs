@@ -21,7 +21,7 @@ namespace WebAPIApplication.Controllers
             context = ctx;
         }
 
-        // GET api/values
+        // GET customers/
         [HttpGet]
         public IActionResult Get()
         {
@@ -34,7 +34,7 @@ namespace WebAPIApplication.Controllers
             return Ok(customers);
         }
 
-        // GET api/values/5
+        // GET customers/5
         [HttpGet("{id}", Name = "GetCustomer")]
         public IActionResult Get([FromRoute] int id)
         {
@@ -60,7 +60,7 @@ namespace WebAPIApplication.Controllers
             }
         }
 
-        // POST api/values
+        // POST customers/
         [HttpPost]
         public IActionResult Post([FromBody] Customer customer)
         {
@@ -89,7 +89,7 @@ namespace WebAPIApplication.Controllers
             return CreatedAtRoute("GetCustomer", new { id = customer.CustomerId }, customer);
         }
 
-        // PUT api/values/5
+        // PUT customers/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Customer customer)
         {
@@ -120,7 +120,7 @@ namespace WebAPIApplication.Controllers
             }
         }
 
-        // DELETE api/values/5
+        // DELETE customers/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
