@@ -63,42 +63,85 @@ namespace WebAPIApplication.Controllers
         // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody] Order order)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            context.Order.Add(order);
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (OrderExists(order.OrderId))
                 {
-                    if (!ModelState.IsValid)
-                    {
-                        return BadRequest(ModelState);
-                    }
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-                    context.Order.Add(order);
-                    try
-                    {
-                        context.SaveChanges();
-                    }
-                    catch (DbUpdateException)
-                    {
-                        if (OrderExists(order.OrderId))
-                        {
-                            return new StatusCodeResult(StatusCodes.Status409Conflict);
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-
-                    return CreatedAtRoute("GetOrder", new { id = order.OrderId }, order);
+            return CreatedAtRoute("GetOrder", new { id = order.OrderId }, order);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Order order)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                Order currentOrder = context.Order.Single(m => m.OrderId == id);
+
+                if (currentOrder == null)
+                {
+                    return NotFound();
+                }
+                
+                context.Order.Update(order);
+                context.SaveChanges();
+                
+                return Ok(new {successful = $"Order with id {id} updated"});
+            }
+
+            catch (System.InvalidOperationException ex)
+            {
+                return NotFound();
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                Order order = context.Order.Single(m => m.OrderId == id);
+
+                if (order == null)
+                {
+                    return NotFound();
+                }
+                
+                context.Order.Remove(order);
+                context.SaveChanges();
+                
+                return Ok(new {successful = $"Order with id {id} deleted"});
+            }
+
+            catch (System.InvalidOperationException ex)
+            {
+                return NotFound();
+            }
         }
         private bool OrderExists(int id)
         {

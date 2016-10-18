@@ -91,14 +91,57 @@ namespace WebAPIApplication.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Product product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                Product currentProduct = context.Product.Single(m => m.ProductId == id);
+
+                if (currentProduct == null)
+                {
+                    return NotFound();
+                }
+                
+                context.Product.Update(product);
+                context.SaveChanges();
+                
+                return Ok(new {successful = $"Product with id {id} updated"});
+            }
+
+            catch (System.InvalidOperationException ex)
+            {
+                return NotFound();
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                Product product = context.Product.Single(m => m.ProductId == id);
+
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                
+                context.Product.Remove(product);
+                context.SaveChanges();
+                
+                return Ok(new {successful = $"Order with id {id} deleted"});
+            }
+
+            catch (System.InvalidOperationException ex)
+            {
+                return NotFound();
+            }
         }
         private bool ProductExists(int id)
         {
