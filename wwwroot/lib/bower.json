@@ -1,7 +1,7 @@
 {
   "name": "bangazon-frtend",
   "description": "",
-  "main": "index.js",
+  "main": "Gruntfile.js",
   "authors": [
     "Dayne Wright <daynewr@gmail.com>"
   ],
@@ -18,7 +18,7 @@
     "angular": "^1.5.7",
     "angular-route": "^1.5.7",
     "bootstrap": "^3.3.6",
-    "bootswatch-dist": "flatly",
+    "bootswatch-dist": "sandstone",
     "jquery": "^3.1.0",
     "angular-bootstrap": "^2.1.3",
     "moment": "^2.15.0",

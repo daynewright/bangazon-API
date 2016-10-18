@@ -2,9 +2,34 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TESTING SERVER</title>
+    <title>Bangazon!</title>
+    <link rel="stylesheet" media="screen" href="/lib/bower_components/bootswatch-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/bower_components/angular-xeditable/dist/css/xeditable.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
-  <body>
-    TESTING
+    <body ng-app="BangAPI">
+          <div ng-include="'app/partials/navbar.html'"></div>
+          <div ng-view></div>
+
+        <!-- Third Party Libraries -->
+        <script src="lib/bower_components/angular/angular.js"></script>
+        <script src="lib/bower_components/angular-route/angular-route.js"></script>
+        <script src="lib/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="lib/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+        <script src="lib/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="lib/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="lib/bower_components/moment/moment.js"></script>
+
+        <!-- App Files -->
+        <script src="app/app.js"></script>
+
+        <!-- Controllers -->
+        <script src="app/controllers/NavCtrl.js"></script>
+        <script src="app/controllers/CustomerCtrl.js"></script>
+
+        <!-- Services -->
+        <script src="app/services/SearchService.js"></script>
   </body>
 </html>
