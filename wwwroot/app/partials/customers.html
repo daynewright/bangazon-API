@@ -1,3 +1,28 @@
-CUSTOMERS
+<div class="container">
+  <div class="row btn-top">
+    <div class="col-md-4 col-xs-6">
+      <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
+         Add a New Workshop</button>
+     </div>
+  </div>
+  <br/>
+  <table class="table table-hover table-bordered">
+    <tr class="active">
+      <th>Customer Id</th>
+      <th>Customer Name</th>
+      <th>Date Created</th>
+      <th>Delete</th>
+    </tr>
+    <tr ng-repeat="customer in customers | filter: searchText">
+      <td>{{customer.customerId}}</td>
+      <td>{{customer.firstName}} {{customer.lastName}}</td>
+      <td>{{customer.dateFormated}}</td>
+      <td><button ng-click="deleteCustomer(customer.customerId)" class="btn btn-xs btn-danger" type="button"><i class="fa fa fa-trash" aria-hidden="true"></i></button></td>
+    </tr>
+  </table>
 
-<h1>{{searchText}}</h1>
+  <div ng-hide="customers.length" class="alert alert-warning">
+    <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Products Added</h4>
+    <p>Click above to add a product.</p>
+  </div>
+</div>

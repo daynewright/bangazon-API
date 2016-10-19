@@ -1,1 +1,32 @@
 PRODUCTS
+
+<div class="container">
+  <div class="row btn-top">
+    <div class="col-md-4 col-xs-6">
+      <button type="button" class="btn btn-success" ng-click="open()"><span type="button" class="glyphicon glyphicon-plus-sign plusCreate"></span>
+         Add a New Workshop</button>
+     </div>
+  </div>
+  <div class="row"></div>
+  <table class="table table-hover table-bordered">
+    <tr class="active">
+      <th>Product Id</th>
+      <th>Product Description</th>
+      <th>Date Created</th>
+      <th>Delete</th>
+    </tr>
+    <tr ng-repeat="product in products | filter: searchText">
+      <td>{{workshop.dateFormated}}</td>
+      <td>{{workshop.timeFormated}}</td>
+      <td><div uib-tooltip="{{ getBundleName(workshop.bundles) }}">Bundles Offered ({{workshop.bundles.length}})</div></td>
+      <td>${{workshop.totalCost.toFixed(2) || 0.00}}</td>
+    </tr>
+  </table>
+
+  <div ng-hide="repWorkshops.length" class="alert alert-warning">
+    <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> No Products Added</h4>
+    <p>Click above to add a product.</p>
+  </div>
+
+
+</div>
